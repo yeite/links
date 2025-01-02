@@ -144,47 +144,32 @@ document.addEventListener('DOMContentLoaded', () => {
     loadLinksFromFile();
 });
 
-// Comntador de links
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const archivoTxt = "links.txt"; // Cambia a la ruta de tu archivo .txt
-    const listaLinks = document.getElementById("lista-links");
-    const contador = document.getElementById("total-links");
+// Función para cargar los datos desde el archivo .txt
+function loadLinksFromFile() {
+    fetch('links.txt')
+        .then(response => response.text())
+        .then(data => {
+            linksData = parseLinks(data);
+            
+            // Obtener todos los hashtags desde el principio
+            linksData.forEach(link => {
+                link.hashtags.forEach(hashtag => allHashtags.add(hashtag));
+            });
 
-    // Función para cargar y procesar el archivo .txt
-    fetch(archivoTxt)
-      .then((response) => response.text())
-      .then((data) => {
-        const lineas = data.split("\n").filter((linea) => linea.trim() !== ""); // Divide el texto por líneas no vacías
-        let totalLinks = 0;
+            // Actualizar el contador de links
+            updateLinkCounter(linksData.length);
 
-        // Procesa cada línea y extrae el link
-        lineas.forEach((linea) => {
-          const partes = linea.split("|").map((parte) => parte.trim());
-          if (partes.length >= 2) {
-            const titulo = partes[0];
-            const url = partes[1];
-            const hashtags = partes[2] || "";
-            const fecha = partes[3] || "";
-
-            // Crear elemento HTML para cada link
-            const linkHTML = `
-              <div class="link-item">
-                <a href="${url}" target="_blank">${titulo}</a>
-                <div class="meta">
-                  <span>${hashtags}</span> | <span>${fecha}</span>
-                </div>
-              </div>
-            `;
-            listaLinks.innerHTML += linkHTML;
-            totalLinks++;
-          }
+            // Mostrar los links en la página
+            displayLinks(linksData);
         });
+}
 
-        // Actualiza el contador
-        if (contador) {
-          contador.textContent = totalLinks;
-        }
-      })
-      .catch((error) => console.error("Error al cargar el archivo:", error));
-  });
+// Actualizar el contador de links totales
+function updateLinkCounter(totalLinks) {
+    const counterDiv = document.getElementById('contador-links');
+    counterDiv.innerHTML = `<span>${totalLinks} links añadidos hasta la fecha</span>`;
+}
+
+
+
