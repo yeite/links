@@ -4,7 +4,7 @@ let currentPage = 1;
 const itemsPerPage = 5;
 let currentHashtags = []; // Ahora limpiamos los hashtags cuando hacemos clic en uno
 
-// Funciýn para cargar los datos desde el archivo .txt
+// Funciï¿½n para cargar los datos desde el archivo .txt
 function loadLinksFromFile() {
     fetch('links.txt')
         .then(response => response.text())
@@ -35,14 +35,14 @@ function parseLinks(data) {
     return links;
 }
 
-// Limpiar filtros al hacer clic en el týtulo
+// Limpiar filtros al hacer clic en el tï¿½tulo
 function resetFilters() {
     document.getElementById('search').value = '';
     currentHashtags = []; // Resetear los hashtags filtrados
     displayLinks(linksData);
 }
 
-// Buscar links por el týrmino de býsqueda
+// Buscar links por el tï¿½rmino de bï¿½squeda
 function searchLinks() {
     const query = document.getElementById('search').value.toLowerCase();
     const filteredLinks = linksData.filter(link => {
@@ -51,7 +51,7 @@ function searchLinks() {
     displayLinks(filteredLinks);
 }
 
-// Mostrar links con paginaciýn
+// Mostrar links con paginaciï¿½n
 function displayLinks(links) {
     const linksList = document.getElementById('linksList');
     const hashtagsList = document.getElementById('hashtagsList');
@@ -67,13 +67,13 @@ function displayLinks(links) {
         return link.hashtags.some(hashtag => currentHashtags.includes(hashtag));
     });
 
-    // Paginaciýn
+    // Paginaciï¿½n
     const totalPages = Math.ceil(filteredLinks.length / itemsPerPage);
     
-    // Si hay mýs de una pýgina, mostramos los botones de paginaciýn
+    // Si hay mï¿½s de una pï¿½gina, mostramos los botones de paginaciï¿½n
     pagination.style.display = totalPages > 1 ? 'block' : 'none';
 
-    // Determinar el ýndice de inicio y final de los elementos de la pýgina actual
+    // Determinar el ï¿½ndice de inicio y final de los elementos de la pï¿½gina actual
     const startIndex = (currentPage - 1) * itemsPerPage;
     const paginatedLinks = filteredLinks.slice(startIndex, startIndex + itemsPerPage);
 
@@ -92,13 +92,13 @@ function displayLinks(links) {
         linksList.appendChild(linkItem);
     });
 
-    // Mostrar todos los hashtags sin importar el filtro, ordenados alfabýticamente
-    const sortedHashtags = Array.from(allHashtags).sort((a, b) => a.localeCompare(b)); // Ordenar los hashtags alfabýticamente
+    // Mostrar todos los hashtags sin importar el filtro, ordenados alfabï¿½ticamente
+    const sortedHashtags = Array.from(allHashtags).sort((a, b) => a.localeCompare(b)); // Ordenar los hashtags alfabï¿½ticamente
     hashtagsList.innerHTML = sortedHashtags.map(hashtag => {
         return `<span class="hashtag" onclick="filterByHashtag('${hashtag}')">${hashtag}</span>`;
     }).join(' ');
 
-    // Mostrar paginaciýn solo si hay mýs de una pýgina
+    // Mostrar paginaciï¿½n solo si hay mï¿½s de una pï¿½gina
     if (totalPages > 1) {
         const prevButton = document.createElement('button');
         prevButton.textContent = 'Anterior';
@@ -139,8 +139,52 @@ function formatDate(dateString) {
     return `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}`;
 }
 
-// Cargar los links cuando la pýgina se cargue
+// Cargar los links cuando la pagina se cargue
 document.addEventListener('DOMContentLoaded', () => {
     loadLinksFromFile();
 });
 
+// Comntador de links
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const archivoTxt = "links.txt"; // Cambia a la ruta de tu archivo .txt
+    const listaLinks = document.getElementById("lista-links");
+    const contador = document.getElementById("total-links");
+
+    // FunciÃ³n para cargar y procesar el archivo .txt
+    fetch(archivoTxt)
+      .then((response) => response.text())
+      .then((data) => {
+        const lineas = data.split("\n").filter((linea) => linea.trim() !== ""); // Divide el texto por lÃ­neas no vacÃ­as
+        let totalLinks = 0;
+
+        // Procesa cada lÃ­nea y extrae el link
+        lineas.forEach((linea) => {
+          const partes = linea.split("|").map((parte) => parte.trim());
+          if (partes.length >= 2) {
+            const titulo = partes[0];
+            const url = partes[1];
+            const hashtags = partes[2] || "";
+            const fecha = partes[3] || "";
+
+            // Crear elemento HTML para cada link
+            const linkHTML = `
+              <div class="link-item">
+                <a href="${url}" target="_blank">${titulo}</a>
+                <div class="meta">
+                  <span>${hashtags}</span> | <span>${fecha}</span>
+                </div>
+              </div>
+            `;
+            listaLinks.innerHTML += linkHTML;
+            totalLinks++;
+          }
+        });
+
+        // Actualiza el contador
+        if (contador) {
+          contador.textContent = totalLinks;
+        }
+      })
+      .catch((error) => console.error("Error al cargar el archivo:", error));
+  });
