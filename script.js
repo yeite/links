@@ -1,10 +1,8 @@
 let linksData = [];
-let allHashtags = new Set(); // Lista completa de hashtags
-let currentPage = 1;
-const itemsPerPage = 5;
-let currentHashtags = []; // Ahora limpiamos los hashtags cuando hacemos clic en uno
+let allHashtags = new Set(); 
+let currentHashtags = []; 
 
-// Parsear los datos del archivo .txt a un formato JSON adecuado
+// Parsear los datos del archivo .txt
 function parseLinks(data) {
     const links = [];
     const lines = data.split('\n');
@@ -21,50 +19,38 @@ function parseLinks(data) {
     return links;
 }
 
-// Limpiar filtros al hacer clic en el título
+// Resetear filtros
 function resetFilters() {
     document.getElementById('search').value = '';
-    currentHashtags = []; 
-    currentPage = 1; // 👈 resetear a primera página
+    currentHashtags = [];
     displayLinks(linksData);
 }
 
-// Buscar links por término
+// Buscar links
 function searchLinks() {
     const query = document.getElementById('search').value.toLowerCase();
     const filteredLinks = linksData.filter(link => {
-        return link.title.toLowerCase().includes(query) || 
+        return link.title.toLowerCase().includes(query) ||
                link.hashtags.some(hashtag => hashtag.toLowerCase().includes(query));
     });
-    currentPage = 1; // 👈 resetear a primera página
     displayLinks(filteredLinks);
 }
 
-// Mostrar links con paginación
+// Mostrar todos los links (sin paginación)
 function displayLinks(links) {
     const linksList = document.getElementById('linksList');
     const hashtagsList = document.getElementById('hashtagsList');
-    const pagination = document.getElementById('pagination');
     
     linksList.innerHTML = '';
     hashtagsList.innerHTML = '';
-    pagination.innerHTML = '';
     
-    // Filtrar por hashtags
     const filteredLinks = links.filter(link => {
         if (currentHashtags.length === 0) return true;
         return link.hashtags.some(hashtag => currentHashtags.includes(hashtag));
     });
 
-    const totalPages = Math.ceil(filteredLinks.length / itemsPerPage);
-    if (currentPage > totalPages) currentPage = 1; // 👈 evitar quedar en una página inválida
-    
-    pagination.style.display = totalPages > 1 ? 'block' : 'none';
-
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const paginatedLinks = filteredLinks.slice(startIndex, startIndex + itemsPerPage);
-
-    paginatedLinks.forEach(link => {
+    // Mostrar todos los links directamente
+    filteredLinks.forEach(link => {
         const linkItem = document.createElement('div');
         linkItem.classList.add('link-item');
         linkItem.innerHTML = `
@@ -78,43 +64,16 @@ function displayLinks(links) {
         linksList.appendChild(linkItem);
     });
 
-    // Hashtags globales
+    // Listado de hashtags globales
     const sortedHashtags = Array.from(allHashtags).sort((a, b) => a.localeCompare(b));
     hashtagsList.innerHTML = sortedHashtags.map(hashtag => {
         return `<span class="hashtag" onclick="filterByHashtag('${hashtag}')">${hashtag}</span>`;
     }).join(' ');
-
-    // Botones de paginación
-    if (totalPages > 1) {
-        const prevButton = document.createElement('button');
-        prevButton.textContent = 'Anterior';
-        prevButton.disabled = currentPage === 1;
-        prevButton.onclick = () => {
-            if (currentPage > 1) {
-                currentPage--;
-                displayLinks(filteredLinks);
-            }
-        };
-        
-        const nextButton = document.createElement('button');
-        nextButton.textContent = 'Siguiente';
-        nextButton.disabled = currentPage === totalPages;
-        nextButton.onclick = () => {
-            if (currentPage < totalPages) {
-                currentPage++;
-                displayLinks(filteredLinks);
-            }
-        };
-        
-        pagination.appendChild(prevButton);
-        pagination.appendChild(nextButton);
-    }
 }
 
-// Filtrar links por hashtag
+// Filtrar por hashtag
 function filterByHashtag(hashtag) {
     currentHashtags = [hashtag];
-    currentPage = 1; // 👈 resetear a primera página
     displayLinks(linksData);
 }
 
@@ -124,25 +83,22 @@ function formatDate(dateString) {
     return `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}`;
 }
 
-// Cargar los links
+// Cargar links desde archivo
 function loadLinksFromFile() {
     fetch('links.txt')
         .then(response => response.text())
         .then(data => {
             linksData = parseLinks(data);
-            
             allHashtags.clear();
             linksData.forEach(link => {
                 link.hashtags.forEach(hashtag => allHashtags.add(hashtag));
             });
-
             updateLinkCounter(linksData.length);
-            currentPage = 1; // 👈 resetear a primera página
             displayLinks(linksData);
         });
 }
 
-// Actualizar contador de links
+// Contador de links
 function updateLinkCounter(totalLinks) {
     const counterDiv = document.getElementById('contador-links');
     counterDiv.innerHTML = `<span>${totalLinks} links añadidos hasta la fecha</span>`;
