@@ -1,229 +1,31 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Links interesantes</title>
-    <style>
-        /* Estilo general del cuerpo */
-        body {
-            background-color: #1f1f1f; /* Fondo oscuro */
-            color: white;
-            font-family: 'Roboto', sans-serif; /* Tipograf�a limpia y moderna */
-            margin: 0;
-            padding: 0;
-            padding-left: 20px; /* Margen a la izquierda */
-            padding-right: 20px; /* Margen a la derecha */
-        }
-
-        /* T�tulo principal de la p�gina */
-        h1 {
-            text-align: center;
-            padding: 20px;
-            cursor: pointer;
-            color: #D2D5DA; /* Violeta claro para el t�tulo */
-            font-size: 2rem;
-            margin-top: 20px;
-        
-        }
-
-        /* Estilo de la barra de b�squeda */
-        .search-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            padding: 10px;
-        }
-
-        .search-container input {
-            padding: 12px 20px;
-            font-size: 14px;
-            width: 100%; /* Ocupa todo el ancho disponible */
-            max-width: 600px; /* M�ximo tama�o para evitar que se haga demasiado grande */
-            background-color: #333;
-            color: white;
-            border: 1px solid #444;
-            border-radius: 12px; /* Bordes m�s suaves */
-            transition: background-color 0.3s ease;
-        }
-
-        .search-container input:focus {
-            background-color: #444;
-            outline: none;
-        }
-
-                /* Estilo de intro */
-        .intro {
-            text-align: center;
-            padding: 0px 20px 5px 20px;
-            color: #bbb;
-            font-size: 1rem;
-        }
-        
-        
-        
-        
-        /* Estilo para el listado de enlaces */
-        .links-list {
-            margin-top: 20px;
-            padding: 0;
-        }
-
-        /* Cada elemento de enlace */
-        .link-item {
-            background-color: #1e1e1e;
-            margin: 15px 0; /* Espacio entre resultados */
-            padding: 2px 25px;
-            border-radius: 0px;
-            border-bottom: 1px solid #444;
-        }
-
-        .link-item h3 {
-            color: #ADABF2; /* Titulo en violeta claro */
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .link-item h3 a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .link-item h3 a:hover {
-            text-decoration: underline;
-        }
-
-        .link-item p {
-            font-size: 1rem;
-            margin-top: 10px;
-            color: #7e7d7d;
-        }
-
-        .link-item .hashtag {
-            color: #A4F0F0; /* Hashtags en celeste */
-            padding: 2px 2px;
-            margin-right: 2px;
-            margin-bottom: 0px;
-            display: inline-block;
-            cursor: pointer;
-            font-weight: 400;
-        }
-
-        .link-item .hashtag:hover {
-            background-color: #444;
-            border-radius: 5px;
-        }
-
-        /* Estilo de la paginaci�n */
-        .pagination {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .pagination button {
-            padding: 11px 16px;
-            margin: 0 14px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .pagination button:hover {
-            background-color: #444;
-        }
-
-        /* Listado de hashtags en la parte inferior */
-        .hashtags-list {
-            margin-top: 40px;
-            margin: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start; /* Alinear los hashtags a la izquierda */
-            gap: 5px;
-        }
-
-        .hashtags-list .hashtag {
-            color: #A4F0F0; /* Celeste */
-            padding: 2px 5px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 400;
-        }
-
-        .hashtags-list .hashtag:hover {
-            background-color: #444;
-        }
-
-        /* Estilo de la linea divisora */
-        .divider {
-            margin-top: 40px;
-            border-top: 4px solid #444;
-        }
-
-        /* Estilo del pie de pagina */
-        .footer {
-            text-align: center;
-            padding: 0px;
-            color: #bbb;
-            font-size: 1rem;
-        }
-
-        .footer a {
-            color: #ADABF2;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        
-        
-        
-        #contador-links {
-  font-size: 0.9em;
-  margin-bottom: 18px;
-  color: #ffffff;
-            text-align: center;
-  padding: 10px 15px;
-  border-radius: 5px;
-}
-
-
-    </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.6">
+  <style type="text/css">
+    body {background-color: #181818}
+    p.p2 {margin: 0.0px 0.0px 12.0px 0.0px; text-align: center; font: 12.0px Helvetica; color: #adadad; -webkit-text-stroke: #adadad}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 10.8px Helvetica; color: #ffffff; -webkit-text-stroke: #ffffff}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 14.0px}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; background-color: #262626; min-height: 17.0px}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 12.0px Helvetica; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+    span.s2 {font: 12.0px Helvetica; font-kerning: none; color: #9d97ee; -webkit-text-stroke: 0px #9d97ee}
+  </style>
 </head>
 <body>
-    <h1 onclick="resetFilters()">Links interesantes</h1>
-    
-    
-     <!-- Pie de p�gina -->
-    <div class="intro">
-        <p>Encuentra links interesantes para leer y recurrir a ellos cuando los necesites.</p>
-    </div>
-    
-    <div id="contador-links">
- <span id="total-links">links añadidos hasta la fecha</span>
-</div>
-<div id="lista-links"></div>
-    
-    
-    <div class="search-container">
-        <input type="text" id="search" placeholder="Buscar links..." oninput="searchLinks()">
-    </div>
-    <div class="links-list" id="linksList"></div>
-    <div class="pagination" id="pagination"></div>
-    <div class="hashtags-list" id="hashtagsList"></div>
-
-    <!-- L�nea divisora -->
-    <div class="divider"></div>
-
-    <!-- Pie de p�gina -->
-    <div class="footer">
-        <p>Idea y desarrollo por  <a href="https://matizeta.com" target="_blank">matizeta.com</a></p>
-    </div>
-
-    <script src="script.js"></script>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; text-align: center; font: 24.0px Helvetica; color: #c8cbd1; -webkit-text-stroke: #c8cbd1"><span class="s1"><b>Links</b></span></h1>
+<p class="p2"><span class="s1">Encuentra links interesantes para leer y recurrir a ellos cuando los necesites.</span></p>
+<p class="p3"><span class="s1">links añadidos hasta la fecha</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p5"><span class="s1"></span><br></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p6"><span class="s1"></span><br></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1">Idea y desarrollo por <a href="https://matizeta.com/"><span class="s2">matizeta.com</span></a></span></p>
 </body>
 </html>
